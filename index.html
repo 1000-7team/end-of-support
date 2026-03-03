@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000-7team · переезд</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .page {
+            max-width: 700px;
+            width: 100%;
+            background: #2d2d2d;
+            border: 1px solid #404040;
+            padding: 50px 45px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tag {
+            font-size: 48px;
+            font-weight: bold;
+            color: #808080;
+            margin-bottom: 40px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .old-domain {
+            font-size: 42px;
+            font-weight: bold;
+            color: #666666;
+            text-decoration: line-through 3px #555555;
+            word-break: break-all;
+            margin: 15px 0 8px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .years {
+            font-size: 18px;
+            color: #5a5a5a;
+            margin-bottom: 40px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .text {
+            background: #252525;
+            padding: 25px;
+            border: 1px solid #3a3a3a;
+            margin: 35px 0;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #b0b0b0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .text p {
+            margin-bottom: 12px;
+        }
+
+        .reason-area {
+            margin: 30px 0 20px;
+        }
+
+        .reason-btn {
+            background: #333333;
+            border: 1px solid #505050;
+            padding: 15px 25px;
+            width: 100%;
+            text-align: left;
+            font-size: 18px;
+            color: #b0b0b0;
+            font-family: 'Arial', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reason-btn:hover {
+            background: #3a3a3a;
+            border-color: #6a6a6a;
+            color: #d0d0d0;
+        }
+
+        .reason-btn .arrow {
+            font-size: 22px;
+            color: #6a6a6a;
+        }
+
+        .reason-text {
+            background: #1f1f1f;
+            border: 1px solid #404040;
+            border-top: none;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .reason-text.show {
+            padding: 25px;
+            max-height: 150px;
+            border-top: 1px solid #404040;
+        }
+
+        .reason-content {
+            color: #a0a0a0;
+            font-size: 18px;
+            line-height: 1.6;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .reg-ru {
+            color: #b0b0b0;
+            font-weight: bold;
+            background: #2a2a2a;
+            padding: 2px 6px;
+            border: 1px solid #505050;
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .new-block {
+            background: #222222;
+            border: 2px dashed #4a4a4a;
+            padding: 35px 30px;
+            margin: 40px 0 30px;
+            text-align: left;
+        }
+
+        .new-label {
+            font-size: 16px;
+            color: #6a6a6a;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .new-domain {
+            font-size: 42px;
+            font-weight: bold;
+            color: #9a9a9a;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            word-break: break-all;
+        }
+
+        .note {
+            font-size: 18px;
+            color: #6a6a6a;
+            margin-top: 15px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .note span {
+            background: #2a2a2a;
+            padding: 3px 10px;
+            border: 1px solid #4a4a4a;
+            color: #888888;
+        }
+
+        .info {
+            background: #252525;
+            padding: 18px;
+            border-left: 4px solid #505050;
+            margin: 30px 0;
+            color: #a0a0a0;
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #404040;
+            font-size: 18px;
+            color: #6a6a6a;
+            text-align: right;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .memory {
+            font-size: 15px;
+            color: #4a4a4a;
+            text-align: center;
+            margin-top: 25px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 30px 20px;
+            }
+            .tag {
+                font-size: 40px;
+            }
+            .old-domain {
+                font-size: 32px;
+            }
+            .new-domain {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="tag">#1000-7</div>
+        
+        <div class="old-domain">1000-7team.ru</div>
+        <div class="years">2024 — 2026</div>
+        
+        <div class="text">
+            <p>этот домен был наш с 2024 года. а сейчас его отбирают. так бывает.</p>
+            <p>нам жаль. мы привыкли к этому адресу, но ничего не поделать.</p>
+            <p>мы переезжаем. пока новый сайт не работает, но это временно.</p>
+        </div>
+        
+        <!-- КНОПКА С ПРИЧИНАМИ -->
+        <div class="reason-area">
+            <button class="reason-btn" onclick="toggleReason()">
+                <span>почему так вышло</span>
+                <span class="arrow">▼</span>
+            </button>
+            <div class="reason-text" id="reasonText">
+                <div class="reason-content">
+                    <span class="reg-ru">reg.ru</span> поднял цены на хостинг.<br>
+                    именно они лишили наше дитя.
+                </div>
+            </div>
+        </div>
+        
+        <div class="new-block">
+            <div class="new-label">новый адрес</div>
+            <div class="new-domain">rc1000-7team.ru</div>
+            <div class="note">
+                <span>временно недоступен</span>
+            </div>
+        </div>
+        
+        <div class="info">
+            сохраните новый домен в закладки. скоро появится.
+        </div>
+        
+        <div class="memory">
+            1000-7team · 2024-2026
+        </div>
+        
+        <div class="footer">
+            ваши 1000-7team
+        </div>
+    </div>
+
+    <script>
+        function toggleReason() {
+            var reasonText = document.getElementById("reasonText");
+            var arrow = document.querySelector(".reason-btn .arrow");
+            
+            if (reasonText.classList.contains("show")) {
+                reasonText.classList.remove("show");
+                arrow.innerHTML = "▼";
+            } else {
+                reasonText.classList.add("show");
+                arrow.innerHTML = "▲";
+            }
+        }
+    </script>
+</body>
+</html>
