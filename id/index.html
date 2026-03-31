@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>1000-7id — Единая система авторизации</title>
+    <meta name="description" content="1000-7id: безопасный вход через OAuth 2.0 / OpenID Connect. Один аккаунт для всех сервисов.">
+    <meta name="theme-color" content="#0a0f1c">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f8fafc 0%, #eef2f8 100%);
+            color: #0a1c2f;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(10, 15, 28, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF 0%, #C0E0FF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .badge {
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 100px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #b0e0ff;
+            border: 0.5px solid rgba(0,212,255,0.4);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.65);
+            color: white;
+            padding: 0.6rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: #0a0f1c;
+            border-color: white;
+            transform: scale(1.02);
+        }
+
+        .main-content {
+            flex: 1;
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(120deg, #ffffff 0%, #f4f9ff 100%);
+            border-radius: 2rem;
+            padding: 2.8rem 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,100,200,0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #0B2B44, #1A4A7A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero-accent {
+            font-size: 1.2rem;
+            color: #2c5270;
+            margin-bottom: 1.8rem;
+            border-left: 4px solid #2b7fff;
+            padding-left: 1.2rem;
+            font-weight: 500;
+        }
+
+        .oauth-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .protocol-badge {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .protocol {
+            background: #eef3fc;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #0057a3;
+        }
+
+        .cta-hero {
+            background: #0f2b3d;
+            padding: 0.6rem 1.6rem;
+            border-radius: 60px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-hero:hover {
+            background: #1c4d6f;
+            transform: translateY(-2px);
+        }
+
+        /* Новая кнопка примера */
+        .btn-example {
+            background: linear-gradient(95deg, #1f4e79, #0f3b5c);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-example:hover {
+            background: linear-gradient(95deg, #2b6b9e, #1a4f78);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 60, 100, 0.25);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2edf7;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #bdd8ff;
+            box-shadow: 0 20px 30px -12px rgba(0, 70, 150, 0.15);
+        }
+
+        .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 0.75rem; font-weight: 700; }
+        .card p { color: #2c3e4e; line-height: 1.5; }
+
+        /* OAuth flow */
+        .oauth-flow {
+            background: #ffffffdd;
+            backdrop-filter: blur(4px);
+            border-radius: 1.8rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #cbe4fe;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 160px;
+            background: #f0f6fe;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .step-number {
+            background: #1f6392;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 1.5rem;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeInUp 0.2s ease;
+        }
+
+        .modal-content img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            border-radius: 1.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            border-radius: 40px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            background: #c00;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a101c;
+            color: #cbd5e6;
+            padding: 2rem 2rem 1.8rem;
+            border-top: 1px solid #1e2a3a;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #a0b5cc;
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-link:hover { color: white; }
+
+        .dev-btn {
+            background: rgba(255,255,255,0.08);
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .dev-btn:hover {
+            background: #2b7fff;
+            border-color: #2b7fff;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 720px) {
+            .header-container { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 1.8rem; }
+            .main-content { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-area">
+                <span class="logo">1000-7id</span>
+                <span class="badge">единая авторизация</span>
+            </div>
+            <a href="https://1000-7id.ru/?utm_source=about" class="btn-outline-light" id="loginBtnHeader">
+                🔐 Войти через 1000-7id
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="hero">
+            <h1>Единая система авторизации<br><span style="background: linear-gradient(120deg,#003B6F,#0F6B9F); background-clip:text; -webkit-background-clip:text; color:transparent;">1000-7id</span></h1>
+            <div class="hero-accent">
+                OAuth 2.0 + OpenID Connect — безопасный вход для миллионов пользователей. Один аккаунт — вся экосистема.
+            </div>
+            <div class="oauth-grid">
+                <div class="protocol-badge">
+                    <span class="protocol">OAuth 2.0</span>
+                    <span class="protocol">OpenID Connect</span>
+                    <span class="protocol">PKCE support</span>
+                    <span class="protocol">SCIM v2</span>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <a href="https://1000-7id.ru/?utm_source=about" class="cta-hero">➡️ Начать вход</a>
+                    <button class="btn-example" id="showExampleBtn">🖼️ Пример отображения авторизации</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <h3>Безопасный OAuth</h3>
+                <p>Стандартизированные протоколы, защита от CSRF, двухфакторная аутентификация.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>Single Sign-On (SSO)</h3>
+                <p>Войдите один раз — пользуйтесь сотнями сервисов-партнеров.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡️</div>
+                <h3>Мгновенная интеграция</h3>
+                <p>Готовые SDK, консоль разработчика, настройка за 15 минут.</p>
+            </div>
+        </div>
+
+        <div class="oauth-flow">
+            <h2 style="font-size: 1.8rem; font-weight: 700;">✨ Как работает единая авторизация</h2>
+            <p style="margin-bottom: 1rem;">Стандартный OAuth 2.0 / OIDC flow через 1000-7id.</p>
+            <div class="flow-steps">
+                <div class="step"><div class="step-number">1</div><strong>Запрос авторизации</strong><p style="font-size: 0.85rem;">Перенаправление на 1000-7id</p></div>
+                <div class="step"><div class="step-number">2</div><strong>Вход / согласие</strong><p style="font-size: 0.85rem;">Пользователь входит и подтверждает доступ</p></div>
+                <div class="step"><div class="step-number">3</div><strong>Код авторизации</strong><p style="font-size: 0.85rem;">Redirect URI с временным кодом</p></div>
+                <div class="step"><div class="step-number">4</div><strong>Обмен на токены</strong><p style="font-size: 0.85rem;">Access + ID Token (JWT)</p></div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(115deg, #eef3fc, #ffffff); border-radius: 1.8rem; padding: 2rem; margin: 2rem 0; border: 1px solid #cce2f5;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem;">
+                <div>
+                    <h2 style="font-weight: 800; font-size: 1.7rem;">🛠️ API для разработчиков</h2>
+                    <p style="max-width: 550px; margin-top: 0.5rem;">Полная документация по REST API, Webhooks, управление пользователями.</p>
+                    <div style="margin-top: 1rem; display: flex; gap: 0.8rem;">
+                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">OAuth 2.0</span>
+                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">OpenID Connect</span>
+                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">Management API</span>
+                    </div>
+                </div>
+                <a href="https://1000-7id.ru/dev/?utm_source=api" class="dev-btn" style="background:#0f2b3d; border: none; padding: 0.9rem 1.8rem;">
+                    📘 Перейти в раздел API →
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <span style="font-weight: 600;">© 1000-7id</span>
+                <a href="#" class="footer-link" style="cursor:default;">Документация</a>
+                <a href="#" class="footer-link" style="cursor:default;">Безопасность</a>
+                <a href="#" class="footer-link" style="cursor:default;">Соглашение</a>
+            </div>
+            <div>
+                <a href="https://1000-7id.ru/dev/?utm_source=api" class="dev-btn" id="apiDevFooterBtn">
+                    ⚙️ API для разработчиков
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            Единая система авторизации OAuth 2.0 / OpenID Connect. Вход с помощью 1000-7id.
+        </div>
+    </footer>
+</div>
+
+<!-- Модальное окно -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModalBtn">&times;</button>
+        <img src="https://1000-7team.ru/cdn/example-0001service.png" alt="Пример окна авторизации 1000-7id" style="width:100%; height:auto; display:block;">
+    </div>
+</div>
+
+<script>
+    (function() {
+        const modal = document.getElementById('authModal');
+        const showBtn = document.getElementById('showExampleBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        function openModal() {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        showBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+        });
+
+        // Проверка ссылок
+        const headerLink = document.querySelector('#loginBtnHeader');
+        const footerLink = document.querySelector('#apiDevFooterBtn');
+        if (headerLink) console.log('✅ Кнопка "Войти" ведет на', headerLink.href);
+        if (footerLink) console.log('✅ Кнопка API ведет на', footerLink.href);
+        console.log('✅ Модальное окно с примером авторизации добавлено, изображение загружается с 1000-7team.ru');
+    })();
+</script>
+</body>
+</html>
