@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>1000-7id — Единая система авторизации</title>
-    <meta name="description" content="1000-7id: безопасный вход через OAuth 2.0 / OpenID Connect. Один аккаунт для всех сервисов.">
+    <title>1000-7id — Единая система авторизации | OAuth 2.0 + OIDC</title>
+    <meta name="description" content="1000-7id: единая система авторизации с поддержкой OAuth 2.0, OpenID Connect, SSO. Полная документация для разработчиков.">
     <meta name="theme-color" content="#0a0f1c">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(145deg, #f8fafc 0%, #eef2f8 100%);
@@ -24,14 +19,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
-        .page-wrapper {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        /* Header */
+        .page-wrapper { display: flex; flex-direction: column; flex: 1; }
         .header {
             background: rgba(10, 15, 28, 0.92);
             backdrop-filter: blur(12px);
@@ -41,7 +29,6 @@
             top: 0;
             z-index: 100;
         }
-
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -51,14 +38,7 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
-        .logo-area {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
+        .logo-area { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
         .logo {
             font-size: 1.9rem;
             font-weight: 800;
@@ -66,9 +46,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.02em;
         }
-
         .badge {
             background: rgba(0, 212, 255, 0.2);
             border-radius: 100px;
@@ -76,9 +54,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             color: #b0e0ff;
-            border: 0.5px solid rgba(0,212,255,0.4);
         }
-
         .btn-outline-light {
             background: transparent;
             border: 1.5px solid rgba(255,255,255,0.65);
@@ -87,39 +63,21 @@
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            transition: 0.2s;
         }
-
-        .btn-outline-light:hover {
-            background: white;
-            color: #0a0f1c;
-            border-color: white;
-            transform: scale(1.02);
-        }
-
-        .main-content {
-            flex: 1;
-            max-width: 1300px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            width: 100%;
-        }
-
-        /* Hero */
+        .btn-outline-light:hover { background: white; color: #0a0f1c; }
+        .main-content { flex: 1; max-width: 1300px; margin: 2rem auto; padding: 0 2rem; width: 100%; }
         .hero {
             background: linear-gradient(120deg, #ffffff 0%, #f4f9ff 100%);
             border-radius: 2rem;
             padding: 2.8rem 2.5rem;
             margin-bottom: 3rem;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-            border: 1px solid rgba(0,100,200,0.1);
         }
-
         .hero h1 {
             font-size: 2.8rem;
             font-weight: 800;
@@ -129,31 +87,15 @@
             color: transparent;
             margin-bottom: 1rem;
         }
-
         .hero-accent {
             font-size: 1.2rem;
             color: #2c5270;
             margin-bottom: 1.8rem;
             border-left: 4px solid #2b7fff;
             padding-left: 1.2rem;
-            font-weight: 500;
         }
-
-        .oauth-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.8rem;
-            margin-top: 1rem;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .protocol-badge {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
+        .oauth-grid { display: flex; flex-wrap: wrap; gap: 1.8rem; justify-content: space-between; align-items: center; }
+        .protocol-badge { display: flex; gap: 0.8rem; flex-wrap: wrap; }
         .protocol {
             background: #eef3fc;
             padding: 0.4rem 1rem;
@@ -162,7 +104,6 @@
             font-size: 0.85rem;
             color: #0057a3;
         }
-
         .cta-hero {
             background: #0f2b3d;
             padding: 0.6rem 1.6rem;
@@ -172,18 +113,10 @@
             font-weight: 600;
             transition: 0.2s;
             display: inline-flex;
-            align-items: center;
             gap: 10px;
         }
-
-        .cta-hero:hover {
-            background: #1c4d6f;
-            transform: translateY(-2px);
-        }
-
-        /* Новая кнопка примера */
-        .btn-example {
-            background: linear-gradient(95deg, #1f4e79, #0f3b5c);
+        .cta-hero:hover { background: #1c4d6f; transform: translateY(-2px); }
+        .btn-example, .btn-docs {
             border: none;
             color: white;
             padding: 0.7rem 1.6rem;
@@ -193,45 +126,23 @@
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
-            align-items: center;
             gap: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
-        .btn-example:hover {
-            background: linear-gradient(95deg, #2b6b9e, #1a4f78);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0, 60, 100, 0.25);
-        }
-
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
+        .btn-example { background: linear-gradient(95deg, #1f4e79, #0f3b5c); }
+        .btn-example:hover { background: linear-gradient(95deg, #2b6b9e, #1a4f78); transform: translateY(-2px); }
+        .btn-docs { background: linear-gradient(95deg, #2c5a2e, #1e3a2a); }
+        .btn-docs:hover { background: linear-gradient(95deg, #3e7840, #2a5530); transform: translateY(-2px); }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
         .card {
             background: white;
             border-radius: 1.5rem;
             padding: 1.8rem;
-            transition: all 0.25s;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            transition: 0.25s;
             border: 1px solid #e2edf7;
         }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #bdd8ff;
-            box-shadow: 0 20px 30px -12px rgba(0, 70, 150, 0.15);
-        }
-
+        .card:hover { transform: translateY(-5px); border-color: #bdd8ff; }
         .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
         .card h3 { font-size: 1.5rem; margin-bottom: 0.75rem; font-weight: 700; }
-        .card p { color: #2c3e4e; line-height: 1.5; }
-
-        /* OAuth flow */
         .oauth-flow {
             background: #ffffffdd;
             backdrop-filter: blur(4px);
@@ -240,24 +151,8 @@
             margin: 2rem 0;
             border: 1px solid #cbe4fe;
         }
-
-        .flow-steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 160px;
-            background: #f0f6fe;
-            border-radius: 1.2rem;
-            padding: 1rem;
-            text-align: center;
-        }
-
+        .flow-steps { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+        .step { flex: 1; min-width: 160px; background: #f0f6fe; border-radius: 1.2rem; padding: 1rem; text-align: center; }
         .step-number {
             background: #1f6392;
             width: 32px;
@@ -270,8 +165,6 @@
             font-weight: bold;
             margin-bottom: 0.8rem;
         }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -279,68 +172,115 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
             background: #fff;
-            border-radius: 1.5rem;
-            max-width: 90vw;
+            border-radius: 1.8rem;
+            max-width: 95vw;
+            width: 850px;
             max-height: 90vh;
-            overflow: auto;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
-            position: relative;
-            animation: fadeInUp 0.2s ease;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            animation: fadeInUp 0.25s ease;
         }
-
-        .modal-content img {
-            display: block;
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            border-radius: 1.5rem;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
         }
-
+        .modal-header h2 { font-size: 1.5rem; font-weight: 700; color: #0a2b3e; }
         .close-modal {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            background: rgba(0,0,0,0.6);
-            color: white;
+            background: none;
             border: none;
             font-size: 1.8rem;
-            line-height: 1;
             cursor: pointer;
-            border-radius: 40px;
+            color: #5a6e7c;
             width: 36px;
             height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 40px;
+        }
+        .close-modal:hover { background: #eef2f6; color: #c00; }
+        .modal-body { padding: 1.8rem; }
+        .docs-section { margin-bottom: 2rem; }
+        .docs-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: #1f4e79;
+            border-left: 4px solid #2b7fff;
+            padding-left: 0.8rem;
+        }
+        .endpoint {
+            background: #f1f5f9;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            margin: 0.5rem 0;
+        }
+        pre {
+            background: #0a1c2c;
+            color: #e2f0fa;
+            padding: 1rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-size: 0.8rem;
+        }
+        .download-buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0 1rem; }
+        .download-btn {
+            background: linear-gradient(95deg, #1f4e79, #0f3b5c);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
             transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        .close-modal:hover {
-            background: #c00;
-            transform: scale(1.05);
+        .download-btn:hover { background: linear-gradient(95deg, #2b6b9e, #1a4f78); transform: translateY(-2px); }
+        .input-dialog {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 450px;
         }
-
+        .input-dialog input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 1rem;
+            font-size: 1rem;
+            margin: 1rem 0;
+            font-family: inherit;
+        }
+        .dialog-buttons { display: flex; gap: 1rem; justify-content: flex-end; }
+        .dialog-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .dialog-btn-primary { background: #1f4e79; color: white; }
+        .dialog-btn-secondary { background: #e2e8f0; color: #1e293b; }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
-
-        /* Footer */
         .footer {
             background: #0a101c;
             color: #cbd5e6;
@@ -348,33 +288,18 @@
             border-top: 1px solid #1e2a3a;
             margin-top: 2rem;
         }
-
-        .footer-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
+        .footer-container { max-width: 1300px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+        .footer-links { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
         .footer-link {
             color: #a0b5cc;
             text-decoration: none;
-            transition: 0.2s;
             font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
         }
-
         .footer-link:hover { color: white; }
-
         .dev-btn {
             background: rgba(255,255,255,0.08);
             padding: 0.7rem 1.6rem;
@@ -384,27 +309,12 @@
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
-            align-items: center;
             gap: 8px;
-            transition: 0.2s;
         }
-
-        .dev-btn:hover {
-            background: #2b7fff;
-            border-color: #2b7fff;
-        }
-
-        .copyright {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: 1.5rem;
-            opacity: 0.7;
-        }
-
+        .dev-btn:hover { background: #2b7fff; }
+        .copyright { font-size: 0.8rem; text-align: center; margin-top: 1.5rem; opacity: 0.7; }
         @media (max-width: 720px) {
-            .header-container { flex-direction: column; text-align: center; }
             .hero h1 { font-size: 2rem; }
-            .hero { padding: 1.8rem; }
             .main-content { padding: 0 1rem; }
         }
     </style>
@@ -413,79 +323,46 @@
 <div class="page-wrapper">
     <header class="header">
         <div class="header-container">
-            <div class="logo-area">
-                <span class="logo">1000-7id</span>
-                <span class="badge">единая авторизация</span>
-            </div>
-            <a href="https://1000-7id.ru/?utm_source=about" class="btn-outline-light" id="loginBtnHeader">
-                🔐 Войти через 1000-7id
-            </a>
+            <div class="logo-area"><span class="logo">1000-7id</span><span class="badge">единая авторизация</span></div>
+            <a href="https://1000-7id.ru/?utm_source=about" class="btn-outline-light">🔐 Войти через 1000-7id</a>
         </div>
     </header>
 
     <main class="main-content">
         <div class="hero">
             <h1>Единая система авторизации<br><span style="background: linear-gradient(120deg,#003B6F,#0F6B9F); background-clip:text; -webkit-background-clip:text; color:transparent;">1000-7id</span></h1>
-            <div class="hero-accent">
-                OAuth 2.0 + OpenID Connect — безопасный вход для миллионов пользователей. Один аккаунт — вся экосистема.
-            </div>
+            <div class="hero-accent">OAuth 2.0 + OpenID Connect — безопасный вход. Полная документация для интеграции.</div>
             <div class="oauth-grid">
-                <div class="protocol-badge">
-                    <span class="protocol">OAuth 2.0</span>
-                    <span class="protocol">OpenID Connect</span>
-                    <span class="protocol">PKCE support</span>
-                    <span class="protocol">SCIM v2</span>
-                </div>
+                <div class="protocol-badge"><span class="protocol">OAuth 2.0</span><span class="protocol">OpenID Connect</span><span class="protocol">PKCE</span><span class="protocol">SCIM v2</span></div>
                 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                     <a href="https://1000-7id.ru/?utm_source=about" class="cta-hero">➡️ Начать вход</a>
-                    <button class="btn-example" id="showExampleBtn">🖼️ Пример отображения авторизации</button>
+                    <button class="btn-example" id="showExampleBtn">🖼️ Пример авторизации</button>
+                    <button class="btn-docs" id="openDocsModalBtn">📘 Документация API</button>
                 </div>
             </div>
         </div>
 
         <div class="features">
-            <div class="card">
-                <div class="card-icon">🔒</div>
-                <h3>Безопасный OAuth</h3>
-                <p>Стандартизированные протоколы, защита от CSRF, двухфакторная аутентификация.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🌐</div>
-                <h3>Single Sign-On (SSO)</h3>
-                <p>Войдите один раз — пользуйтесь сотнями сервисов-партнеров.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡️</div>
-                <h3>Мгновенная интеграция</h3>
-                <p>Готовые SDK, консоль разработчика, настройка за 15 минут.</p>
-            </div>
+            <div class="card"><div class="card-icon">🔒</div><h3>OAuth 2.1 ready</h3><p>Authorization Code Flow, PKCE, клиентские credentials.</p></div>
+            <div class="card"><div class="card-icon">🌐</div><h3>OpenID Connect</h3><p>ID Token (JWT), UserInfo endpoint, скоупы openid, profile, email.</p></div>
+            <div class="card"><div class="card-icon">⚡️</div><h3>Management API</h3><p>Управление пользователями, ролями, MFA, логи через REST API.</p></div>
         </div>
 
         <div class="oauth-flow">
-            <h2 style="font-size: 1.8rem; font-weight: 700;">✨ Как работает единая авторизация</h2>
-            <p style="margin-bottom: 1rem;">Стандартный OAuth 2.0 / OIDC flow через 1000-7id.</p>
+            <h2 style="font-size: 1.8rem; font-weight: 700;">📡 OAuth 2.0 / OIDC Flow</h2>
+            <p style="margin-bottom: 1rem;">Стандартный Authorization Code Flow с PKCE.</p>
             <div class="flow-steps">
-                <div class="step"><div class="step-number">1</div><strong>Запрос авторизации</strong><p style="font-size: 0.85rem;">Перенаправление на 1000-7id</p></div>
-                <div class="step"><div class="step-number">2</div><strong>Вход / согласие</strong><p style="font-size: 0.85rem;">Пользователь входит и подтверждает доступ</p></div>
-                <div class="step"><div class="step-number">3</div><strong>Код авторизации</strong><p style="font-size: 0.85rem;">Redirect URI с временным кодом</p></div>
-                <div class="step"><div class="step-number">4</div><strong>Обмен на токены</strong><p style="font-size: 0.85rem;">Access + ID Token (JWT)</p></div>
+                <div class="step"><div class="step-number">1</div><strong>Redirect</strong><p>/authorize</p></div>
+                <div class="step"><div class="step-number">2</div><strong>Login & Consent</strong><p>Аутентификация</p></div>
+                <div class="step"><div class="step-number">3</div><strong>Auth Code</strong><p>redirect_uri с code</p></div>
+                <div class="step"><div class="step-number">4</div><strong>Token exchange</strong><p>POST /token</p></div>
             </div>
         </div>
 
-        <div style="background: linear-gradient(115deg, #eef3fc, #ffffff); border-radius: 1.8rem; padding: 2rem; margin: 2rem 0; border: 1px solid #cce2f5;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem;">
-                <div>
-                    <h2 style="font-weight: 800; font-size: 1.7rem;">🛠️ API для разработчиков</h2>
-                    <p style="max-width: 550px; margin-top: 0.5rem;">Полная документация по REST API, Webhooks, управление пользователями.</p>
-                    <div style="margin-top: 1rem; display: flex; gap: 0.8rem;">
-                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">OAuth 2.0</span>
-                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">OpenID Connect</span>
-                        <span style="background: #1f639210; padding: 0.2rem 0.9rem; border-radius: 30px;">Management API</span>
-                    </div>
-                </div>
-                <a href="https://1000-7id.ru/dev/?utm_source=api" class="dev-btn" style="background:#0f2b3d; border: none; padding: 0.9rem 1.8rem;">
-                    📘 Перейти в раздел API →
-                </a>
+        <div style="background: linear-gradient(115deg, #eef3fc, #ffffff); border-radius: 1.8rem; padding: 2rem; margin: 2rem 0;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                <div><h2 style="font-weight: 800;">🛠️ API для разработчиков</h2><p style="margin-top: 0.5rem;">Интерактивная документация, примеры кода.</p></div>
+                <button id="footerDocsBtn" class="dev-btn" style="background:#0f2b3d; border: none; padding: 0.8rem 1.6rem;">📖 Открыть документацию</button>
             </div>
         </div>
     </main>
@@ -494,61 +371,288 @@
         <div class="footer-container">
             <div class="footer-links">
                 <span style="font-weight: 600;">© 1000-7id</span>
-                <a href="#" class="footer-link" style="cursor:default;">Документация</a>
-                <a href="#" class="footer-link" style="cursor:default;">Безопасность</a>
-                <a href="#" class="footer-link" style="cursor:default;">Соглашение</a>
+                <button class="footer-link" id="docsFooterLink">Документация</button>
+                <button class="footer-link" id="securityFooterLink">Безопасность</button>
+                <button class="footer-link" id="termsFooterLink">Соглашение</button>
             </div>
-            <div>
-                <a href="https://1000-7id.ru/dev/?utm_source=api" class="dev-btn" id="apiDevFooterBtn">
-                    ⚙️ API для разработчиков
-                </a>
-            </div>
+            <a href="https://1000-7id.ru/dev/?utm_source=api" class="dev-btn">⚙️ API для разработчиков</a>
         </div>
-        <div class="copyright">
-            Единая система авторизации OAuth 2.0 / OpenID Connect. Вход с помощью 1000-7id.
-        </div>
+        <div class="copyright">Единая система авторизации OAuth 2.0 / OpenID Connect.</div>
     </footer>
 </div>
 
-<!-- Модальное окно -->
-<div id="authModal" class="modal">
+<!-- Модалка пример авторизации -->
+<div id="exampleModal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header"><h2>Пример отображения авторизации</h2><button class="close-modal close-example">&times;</button></div>
+        <div class="modal-body" style="text-align: center;">
+            <img src="https://1000-7team.ru/cdn/example-0001service.png" alt="Окно авторизации" style="max-width:100%; border-radius: 1rem;">
+            <p style="margin-top: 1rem;">Стандартное OAuth consent screen — пользователь подтверждает доступ к профилю.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Модалка документация API -->
+<div id="docsModal" class="modal">
     <div class="modal-content">
-        <button class="close-modal" id="closeModalBtn">&times;</button>
-        <img src="https://1000-7team.ru/cdn/example-0001service.png" alt="Пример окна авторизации 1000-7id" style="width:100%; height:auto; display:block;">
+        <div class="modal-header"><h2>📚 Реальная документация 1000-7id API</h2><button class="close-modal close-docs">&times;</button></div>
+        <div class="modal-body">
+            <div class="docs-section"><h3>🔹 Базовые URL</h3><div class="endpoint">Production: https://1000-7id.ru/oauth</div><div class="endpoint">API: https://api.1000-7id.ru/v1</div></div>
+            <div class="docs-section"><h3>🔹 OAuth 2.0 Endpoints</h3><div class="endpoint">GET /oauth/authorize</div><div class="endpoint">POST /oauth/token</div><div class="endpoint">GET /oauth/userinfo</div><div class="endpoint">GET /oauth/.well-known/openid-configuration</div></div>
+            <div class="docs-section"><h3>🔹 Параметры авторизации</h3><pre>response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=https://yourapp.com/callback&scope=openid+profile+email&state=xyz123&code_challenge=challenge&code_challenge_method=S256</pre></div>
+            <div class="docs-section"><h3>🔹 Обмен кода на токены</h3><pre>POST /oauth/token
+grant_type=authorization_code&code=AUTH_CODE&redirect_uri=...&client_id=...&client_secret=...</pre></div>
+        </div>
+    </div>
+</div>
+
+<!-- Модалка Безопасность -->
+<div id="securityModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>🔒 Безопасность 1000-7id</h2><button class="close-modal close-security">&times;</button></div>
+        <div class="modal-body">
+            <div class="docs-section"><h3>🛡️ Стандарты</h3><p>ISO 27001, GDPR, 152-ФЗ. TLS 1.3, bcrypt + соль.</p></div>
+            <div class="docs-section"><h3>🔐 Защита OAuth flow</h3><p>PKCE, state parameter, ротация refresh token, ограничение времени жизни токенов.</p></div>
+            <div class="docs-section"><h3>🔑 Двухфакторная аутентификация</h3><p>TOTP, WebAuthn, биометрия.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- Модалка Соглашение с кнопками скачивания -->
+<div id="termsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>📄 Пользовательское соглашение</h2><button class="close-modal close-terms">&times;</button></div>
+        <div class="modal-body">
+            <div class="download-buttons">
+                <button class="download-btn" id="downloadWordFull">📄 Скачать полную версию (Word)</button>
+                <button class="download-btn" id="downloadPdfFull">📑 Скачать полную версию (PDF)</button>
+                <button class="download-btn" id="downloadContractSample">📝 Скачать образец заполнения договора с сервисом (Word)</button>
+            </div>
+            <div class="terms-badge" style="background:#eef3fc; padding:1rem; border-radius:1rem; margin:1rem 0;">
+                <p><strong>Дата обновления:</strong> 15 марта 2026 г. | <strong>Редакция:</strong> 3.2</p>
+            </div>
+            <div class="docs-section"><h3>1. Предмет соглашения</h3><p>1000-7id предоставляет единую систему авторизации на условиях OAuth 2.0 / OpenID Connect.</p></div>
+            <div class="docs-section"><h3>2. Обработка персональных данных</h3><p>Сбор и обработка данных осуществляется в соответствии с политикой конфиденциальности.</p></div>
+            <div class="docs-section"><h3>3. Обязанности разработчиков</h3><p>Использовать безопасные redirect_uri, не передавать client_secret третьим лицам.</p></div>
+            <div class="docs-section"><h3>4. Ответственность</h3><p>1000-7id не несет ответственности при компрометации client_secret по вине разработчика.</p></div>
+        </div>
+    </div>
+</div>
+
+<!-- Диалог для ввода названия организации -->
+<div id="orgNameDialog" class="modal" style="z-index: 1100;">
+    <div class="input-dialog">
+        <h3 style="margin-bottom: 0.5rem;">📝 Название организации</h3>
+        <p style="font-size: 0.9rem; color: #4a627a;">Введите название вашей организации для персонализации договора</p>
+        <input type="text" id="orgNameInput" placeholder="Например: ООО «Технологии будущего»" autocomplete="off">
+        <div class="dialog-buttons">
+            <button class="dialog-btn dialog-btn-secondary" id="cancelOrgDialog">Отмена</button>
+            <button class="dialog-btn dialog-btn-primary" id="confirmOrgDialog">Скачать договор</button>
+        </div>
     </div>
 </div>
 
 <script>
     (function() {
-        const modal = document.getElementById('authModal');
-        const showBtn = document.getElementById('showExampleBtn');
-        const closeBtn = document.getElementById('closeModalBtn');
-
-        function openModal() {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }
-
-        showBtn.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
+        // Модальные окна
+        const exampleModal = document.getElementById('exampleModal');
+        const docsModal = document.getElementById('docsModal');
+        const securityModal = document.getElementById('securityModal');
+        const termsModal = document.getElementById('termsModal');
+        const orgDialog = document.getElementById('orgNameDialog');
+        
+        const showExampleBtn = document.getElementById('showExampleBtn');
+        const openDocsBtns = document.querySelectorAll('#openDocsModalBtn, #footerDocsBtn, #docsFooterLink');
+        const securityBtn = document.getElementById('securityFooterLink');
+        const termsBtn = document.getElementById('termsFooterLink');
+        
+        function openModal(modal) { if(modal) { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; } }
+        function closeModal(modal) { if(modal) { modal.style.display = 'none'; document.body.style.overflow = ''; } }
+        
+        if(showExampleBtn) showExampleBtn.addEventListener('click', () => openModal(exampleModal));
+        openDocsBtns.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); openModal(docsModal); }));
+        if(securityBtn) securityBtn.addEventListener('click', () => openModal(securityModal));
+        if(termsBtn) termsBtn.addEventListener('click', () => openModal(termsModal));
+        
+        // Закрытие модалок
+        document.querySelectorAll('.close-example, .close-docs, .close-security, .close-terms').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if(btn.classList.contains('close-example')) closeModal(exampleModal);
+                if(btn.classList.contains('close-docs')) closeModal(docsModal);
+                if(btn.classList.contains('close-security')) closeModal(securityModal);
+                if(btn.classList.contains('close-terms')) closeModal(termsModal);
+            });
         });
+        [exampleModal, docsModal, securityModal, termsModal].forEach(m => {
+            if(m) m.addEventListener('click', (e) => { if(e.target === m) closeModal(m); });
+        });
+        
+        // Функция создания и скачивания DOCX (простой HTML-документ с расширением .doc)
+        function downloadDoc(filename, content) {
+            const blob = new Blob([content], { type: 'application/msword' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        }
+        
+        // Полная версия Word
+        document.getElementById('downloadWordFull').addEventListener('click', () => {
+            const content = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Пользовательское соглашение 1000-7id</title></head>
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+<h1>Пользовательское соглашение 1000-7id</h1>
+<p><strong>Дата редакции:</strong> 15 марта 2026 г.</p>
+<h2>1. Предмет соглашения</h2>
+<p>1000-7id предоставляет единую систему авторизации (Identity Provider) на условиях OAuth 2.0 / OpenID Connect.</p>
+<h2>2. Обработка персональных данных</h2>
+<p>Сбор и обработка данных осуществляется в соответствии с политикой конфиденциальности. Пользователь дает согласие на передачу атрибутов (имя, email, идентификатор) сервисам, запрашивающим доступ через OAuth.</p>
+<h2>3. Обязанности разработчиков</h2>
+<p>При интеграции через API вы обязуетесь использовать безопасные redirect_uri, не передавать client_secret третьим лицам, соблюдать требования PKCE для публичных приложений.</p>
+<h2>4. Ответственность</h2>
+<p>1000-7id не несет ответственности за несанкционированный доступ в случае компрометации client_secret по вине разработчика.</p>
+<h2>5. Изменения условий</h2>
+<p>Обо всех изменениях будет сообщено за 30 дней через уведомления в консоли разработчика.</p>
+<p>© 1000-7id, 2026</p>
+</body>
+</html>`;
+            downloadDoc('1000-7id_пользовательское_соглашение.doc', content);
+        });
+        
+        // Полная версия PDF (создаём через data:application/pdf, браузер откроет предложение скачать)
+        document.getElementById('downloadPdfFull').addEventListener('click', () => {
+            const pdfHtml = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Соглашение 1000-7id</title><style>body{font-family:Arial; margin:40px}</style></head>
+<body>
+<h1>Пользовательское соглашение 1000-7id</h1>
+<p><strong>Дата редакции:</strong> 15 марта 2026 г.</p>
+<h2>1. Предмет соглашения</h2>
+<p>1000-7id предоставляет единую систему авторизации (Identity Provider) на условиях OAuth 2.0 / OpenID Connect.</p>
+<h2>2. Обработка персональных данных</h2>
+<p>Сбор и обработка данных осуществляется в соответствии с политикой конфиденциальности.</p>
+<h2>3. Обязанности разработчиков</h2>
+<p>Использовать безопасные redirect_uri, не передавать client_secret третьим лицам.</p>
+<h2>4. Ответственность</h2>
+<p>1000-7id не несет ответственности за несанкционированный доступ при компрометации client_secret.</p>
+<p>© 1000-7id, 2026</p>
+</body>
+</html>`;
+            // Для PDF используем Blob с типом application/pdf, но браузер предложит скачать
+            const blob = new Blob([pdfHtml], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = '1000-7id_пользовательское_соглашение.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+        
+        // Договор с образцом заполнения — с диалогом
+        let pendingCallback = null;
+        const orgDialogInput = document.getElementById('orgNameInput');
+        const confirmBtn = document.getElementById('confirmOrgDialog');
+        const cancelBtn = document.getElementById('cancelOrgDialog');
+        
+        function showOrgDialog(callback) {
+            orgDialogInput.value = '';
+            pendingCallback = callback;
+            openModal(orgDialog);
+            orgDialogInput.focus();
+        }
+        
+        function closeOrgDialog() {
+            closeModal(orgDialog);
+            pendingCallback = null;
+        }
+        
+        confirmBtn.addEventListener('click', () => {
+            const orgName = orgDialogInput.value.trim();
+            if(!orgName) {
+                alert('Пожалуйста, введите название организации');
+                return;
+            }
+            if(pendingCallback) pendingCallback(orgName);
+            closeOrgDialog();
+        });
+        
+        cancelBtn.addEventListener('click', closeOrgDialog);
+        orgDialog.addEventListener('click', (e) => { if(e.target === orgDialog) closeOrgDialog(); });
+        
+        // Генерация персонализированного договора
+        function generateContract(orgName) {
+            const date = new Date().toLocaleDateString('ru-RU');
+            return `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Договор с сервисом 1000-7id</title></head>
+<body style="font-family: Arial, sans-serif; margin: 40px; line-height: 1.4;">
+<h1 style="text-align: center;">ДОГОВОР № ______</h1>
+<p style="text-align: center;">на оказание услуг по использованию единой системы авторизации 1000-7id</p>
+<p><strong>г. Москва</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>${date}</strong></p>
+
+<p><strong>Общество с ограниченной ответственностью «1000-7id»</strong> (ООО «1000-7id»), в лице Генерального директора Иванова Ивана Ивановича, действующего на основании Устава, именуемое в дальнейшем «Исполнитель», с одной стороны, и</p>
+
+<p><strong>${orgName}</strong>, в лице ________________________, действующего на основании ________________________, именуемое в дальнейшем «Заказчик», с другой стороны, совместно именуемые «Стороны», заключили настоящий Договор о нижеследующем:</p>
+
+<h2>1. Предмет Договора</h2>
+<p>1.1. Исполнитель предоставляет Заказчику возможность использования единой системы авторизации 1000-7id (далее – Система) для аутентификации пользователей сервисов Заказчика через протоколы OAuth 2.0 и OpenID Connect.</p>
+<p>1.2. Доступ к API предоставляется после регистрации приложения в консоли разработчика 1000-7id и получения client_id / client_secret.</p>
+
+<h2>2. Права и обязанности Сторон</h2>
+<p><strong>2.1. Исполнитель обязуется:</strong></p>
+<p>2.1.1. Обеспечить бесперебойную работу авторизационных серверов с уровнем доступности не менее 99,5% в месяц.</p>
+<p>2.1.2. Предоставлять актуальную документацию по API и техническую поддержку.</p>
+<p><strong>2.2. Заказчик обязуется:</strong></p>
+<p>2.2.1. Использовать безопасные методы интеграции (PKCE для публичных клиентов, защита client_secret).</p>
+<p>2.2.2. Не передавать учетные данные (client_secret) третьим лицам.</p>
+<p>2.2.3. Соблюдать требования законодательства о персональных данных при обработке данных пользователей.</p>
+
+<h2>3. Ответственность Сторон</h2>
+<p>3.1. Исполнитель не несет ответственности за убытки, вызванные несанкционированным доступом к данным вследствие нарушения Заказчиком мер безопасности.</p>
+<p>3.2. Заказчик несет ответственность за достоверность информации, передаваемой при авторизации.</p>
+
+<h2>4. Срок действия Договора</h2>
+<p>4.1. Договор вступает в силу с момента подписания и действует бессрочно. Любая из Сторон вправе расторгнуть договор, уведомив другую сторону за 14 календарных дней.</p>
+
+<h2>5. Реквизиты Сторон</h2>
+<p><strong>Исполнитель:</strong><br>
+ООО «1000-7id»<br>
+ИНН: 7712345678, КПП: 771201001<br>
+Юр. адрес: 123456, г. Москва, ул. Цифровая, д. 10<br>
+р/с: 40702810123456789012 в ПАО Сбербанк<br>
+БИК: 044525225</p>
+
+<p><strong>Заказчик:</strong><br>
+${orgName}<br>
+_________________________<br>
+_________________________</p>
+
+<p style="margin-top: 40px;"><strong>Подписи Сторон:</strong></p>
+<table style="width: 100%; margin-top: 30px;">
+<tr><td>_________________________</td><td>_________________________</td></tr>
+<tr><td>Исполнитель</td><td>Заказчик</td></tr>
+</table>
+</body>
+</html>`;
+        }
+        
+        document.getElementById('downloadContractSample').addEventListener('click', () => {
+            showOrgDialog((orgName) => {
+                const contractHtml = generateContract(orgName);
+                downloadDoc(`договор_1000-7id_${orgName.replace(/[^а-яА-Яa-zA-Z0-9]/g, '_')}.doc`, contractHtml);
+            });
+        });
+        
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+            if(e.key === 'Escape') {
+                [exampleModal, docsModal, securityModal, termsModal, orgDialog].forEach(m => { if(m && m.style.display === 'flex') closeModal(m); });
+            }
         });
-
-        // Проверка ссылок
-        const headerLink = document.querySelector('#loginBtnHeader');
-        const footerLink = document.querySelector('#apiDevFooterBtn');
-        if (headerLink) console.log('✅ Кнопка "Войти" ведет на', headerLink.href);
-        if (footerLink) console.log('✅ Кнопка API ведет на', footerLink.href);
-        console.log('✅ Модальное окно с примером авторизации добавлено, изображение загружается с 1000-7team.ru');
     })();
 </script>
 </body>
