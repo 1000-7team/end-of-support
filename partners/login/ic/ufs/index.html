@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000-7team | Вход</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+        .login-card{background:rgba(255,255,255,0.95);border-radius:20px;padding:40px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+        .login-card h1{text-align:center;color:#1a1a2e;margin-bottom:10px}
+        .login-card h1 span{color:#e94560}
+        .login-card .subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:14px}
+        .input-group{margin-bottom:20px}
+        .input-group label{display:block;margin-bottom:8px;color:#333;font-weight:500}
+        .input-group input{width:100%;padding:12px 15px;border:2px solid #ddd;border-radius:10px;font-size:16px}
+        .input-group input:focus{outline:none;border-color:#e94560}
+        .btn{width:100%;padding:12px;background:#e94560;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
+        .btn:hover{background:#c72a48}
+        .error-msg{background:#fee;color:#c00;padding:10px;border-radius:8px;margin-bottom:20px;text-align:center;display:none}
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h1>1000-7<span>team</span></h1>
+        <div class="subtitle">Партнерский кабинет</div>
+        <div id="loginError" class="error-msg"></div>
+        <div class="input-group">
+            <label>Логин</label>
+            <input type="text" id="loginUsername" placeholder="Введите логин">
+        </div>
+        <div class="input-group">
+            <label>Пароль</label>
+            <input type="password" id="loginPassword" placeholder="Введите пароль">
+        </div>
+        <button class="btn" onclick="doLogin()">Войти</button>
+    </div>
+
+    <script>
+        let usersDatabase = [];
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('/partners/users.txt');
+                const text = await response.text();
+                const lines = text.split('\n');
+                for (let line of lines) {
+                    line = line.trim();
+                    if (line === '' || line.startsWith('#')) continue;
+                    const parts = line.split(':');
+                    if (parts.length >= 4) {
+                        usersDatabase.push({
+                            organization: parts[0],
+                            login: parts[1],
+                            role: parts[2],
+                            password: parts[3]
+                        });
+                    }
+                }
+            } catch(e) {
+                usersDatabase = [
+                    { organization: "ООО Ромашка", login: "ivanov", role: "admin", password: "12345" },
+                    { organization: "ООО Ромашка", login: "petrov", role: "partner", password: "12345" }
+                ];
+            }
+        }
+
+        async function doLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (!username || !password) {
+                errorDiv.textContent = 'Введите логин и пароль';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            if (usersDatabase.length === 0) await loadUsers();
+            
+            const user = usersDatabase.find(u => u.login === username && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = '/partners/a/';
+            } else {
+                errorDiv.textContent = 'Неверный логин или пароль';
+                errorDiv.style.display = 'block';
+                setTimeout(() => { errorDiv.style.display = 'none'; }, 3000);
+            }
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>
